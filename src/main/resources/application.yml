@@ -1,0 +1,28 @@
+#":"后需要有空格
+
+# 服务端口号
+server:
+  port: 8080
+
+# 数据库地址
+datasource:
+  url: localhost:3306/test
+
+spring:
+  datasource:  # 数据库配置
+    url: jdbc:mysql://${datasource.url}?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=true
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    properties:
+      hibernate:
+        #create 每次加载hibernate时，先删除已存在的数据库表结构再重新生成；
+        #create-drop 每次加载hibernate时，先删除已存在的数据库表结构再重新生成，并且当 sessionFactory关闭时自动删除生成的数据库表结构；
+        #update 只在第一次加载hibernate时自动生成数据库表结构，以后再次加载hibernate时根据model类自动更新表结构，更新数据库，保留原来的数据；
+        #validate 每次加载hibernate时，验证数据库表结构，只会和数据库中的表进行比较，不会创建新表，但是会插入新值。
+        #none 关闭自动更新 
+        hbm2ddl.auto: update
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    show-sql: true
